@@ -1,0 +1,78 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/topic-create-form.css' %}"/>
+<script>
+$(document).ready(function() {
+
+  function create_topic() {
+
+    let title = $("#topic-title").val();
+    let text = $("#topic-text").val();
+    let cat = {% if category_id != 'new' and category_id != 'active' %}{{ category_id }}{% else %}$("#topic-cat option:selected").val(){% endif %};
+    formData = { title: title, text: text, category: cat };
+
+    $.ajax({
+      type: "POST",
+      data: formData,
+      url: "{% url 'topic_api' %}",
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader('X-CSRFToken', csrftoken);
+        $('.form-error').html('');
+      },
+      success: function (data) {
+        $("#topic-entry").tmpl([data]).prependTo("#topics-list");
+        $('#newTopic').modal('toggle');
+        var z = $("#topics-list .topic-entry:nth-child(1) .last .compute-time");
+        computeTime(z);
+      },
+      error: function (xhr, textStatus, errorThrown) {
+        let errors_dict = JSON.parse(xhr['responseText']);
+        for (var key in errors_dict) {
+          $("#form-error-"+key).html(errors_dict[key]);
+        };
+      }
+    });
+  }
+
+  $("#createTopicBtn").on('click', function(e) {
+    create_topic();
+  });
+
+});
+</script>
+<div id="newTopic" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create new topic</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          {% if category_id != 'new' and category_id != 'active' %}
+            {{ category_name }}
+          {% else %}
+          <label for="create_form.category.id_for_label">Category</label>
+          {{ create_form.category }}
+          <span class="form-error" id="form-error-category"></span>
+          {% endif %}
+        </p>
+        <p>
+          <label for="topic-title">Title</label>
+          {{ create_form.title }}
+          <span class="form-error" id="form-error-title"></span>
+        </p>
+        <p>
+          <label for="topic-text">Text</label>
+          <textarea id="topic-text" class="form-control" name="text"></textarea>
+          <span class="form-error" id="form-error-text"></span>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="createTopicBtn" type="button" class="btn btn-primary">Save</button>
+
+      </div>
+    </div>
+
+  </div>
+</div>

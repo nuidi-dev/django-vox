@@ -1,0 +1,27 @@
+{% load staticfiles %}
+<script id="post-entry" type="text/x-jquery-tmpl">
+  <div class="post-entry well row">
+
+    <div class="like-box col-xs-3 col-sm-2 col-md-1 col-lg-1">
+      <div class="inline">
+        <div class="like-counter">
+          {% verbatim %}${likes_num}{% endverbatim %}
+        </div>
+        {% verbatim %}
+        {{if author != app_user}}
+          <div lid="${id}" class="like-btn ${liked}"><span class="glyphicon glyphicon-plus-sign"></span></div>
+        {{/if}}
+        {% endverbatim %}
+      </div>
+    </div>
+
+    <div class="post-box col-xs-8 col-sm-9 col-md-10 col-lg-11">
+      <div class="title">
+        <strong>${author}</strong> - <small><span class="compute-time">${created}</span> ago</small>
+      </div>
+      <div class="text">
+        ${text}
+      </div>
+    </div>
+  </div>
+</script>

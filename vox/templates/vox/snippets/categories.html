@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <a href="{% url 'topic_list' %}">Newest topics</a> |
+        <a href="{% url 'topic_active' %}">Active topics</a>
+        {% for c in categories %}
+          |&nbsp;<a href="{% url 'topic_list_cat' c.slug %}">{{ c.name }}</a>
+        {% endfor %}
+      </div>
+    </div>
+</div>

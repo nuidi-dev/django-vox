@@ -1,0 +1,66 @@
+body {
+  background-color: #f1f1f1;
+  color: #101010;
+  overflow-x: hidden;
+}
+#login-box {
+  margin:50px auto;
+  width: 80%;
+  max-width: 400px;
+}
+#login-box h1 {
+  font-size:1.8em;
+}
+#login-box form {
+  padding-bottom: 10px;
+}
+#crumbs {
+  padding-bottom:10px;
+}
+.like-box {
+  text-align: center;
+}
+
+.like-box .like-btn.true{
+  color:green !important;
+}
+
+.form-error {
+  color:red;
+  font-size:0.9em;
+}
+
+#sidebar {
+  padding-bottom:15px;
+}
+
+#sidebar button {
+  margin-top:8px;
+}
+#sidebar #avatar {
+  max-width:300px;
+  width:40%;
+}
+#sidebar #user-info {
+  margin-left:10px;
+}
+#sidebar #user-info p {
+  font-size:0.8em;
+  opacity:0.77;
+}
+#sidebar h2 {
+  opacity:0.82;
+  margin-top:0;
+  margin-bottom:5px;
+  font-size:1.4em;
+  font-weight:bold;
+}
+#registration_page h1 {
+  font-size:2em;
+}
+
+#registration_page .errorlist {
+  list-style: none;
+  padding:0;
+  color:#ff4436;
+}

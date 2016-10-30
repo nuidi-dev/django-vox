@@ -1,0 +1,42 @@
+{% extends 'vox/base.html' %}
+{% load staticfiles %}
+
+{% load addcssclass %}
+
+{% block extendhead %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/vox.css' %}" />
+<script type="text/javascript" src="{% static 'js/jquery-3.1.0.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="registration_page" class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-5">
+      <h1>Registration</h1>
+      <form action="{% url 'register' %}" method="POST">
+      {% csrf_token %}
+      <p>
+        <label for="id_username">Username</label>
+        {{ form.username|addcssclass:"form-control" }}
+        {{ form.username.errors }}
+      </p>
+      <p>
+        <label for="id_password1">Password</label>
+        {{ form.password1|addcssclass:"form-control" }}
+        {{ form.password1.errors }}
+      </p>
+      <p>
+        <label for="id_password2">Re-type password</label>
+        {{ form.password2|addcssclass:"form-control" }}
+        {{ form.password2.errors }}
+      </p>
+      <p>
+        <input type="submit" class="btn btn-primary" value="Register" />
+      </p>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
